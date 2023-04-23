@@ -13,10 +13,10 @@ const Routes = () => {
         <Route path="/posts/{id:Int}" page={PostPostPage} name="post" />
         <Route path="/posts" page={PostPostsPage} name="posts" />
       </Set>
-      <BlogLayout>
+      <Set wrap={BlogLayout}>
+        <Route path="/" page={HomePage} name="home" />
         <Route path="/about" page={AboutPage} name="about" />
-        <Route path="/home" page={HomePage} name="home" />
-      </BlogLayout>
+      </Set>
 
       <Route notfound page={NotFoundPage} />
     </Router>

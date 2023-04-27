@@ -5,6 +5,7 @@ import {
   Submit,
   FieldError,
   FormError,
+  useForm,
 } from '@redwoodjs/forms'
 import { MetaTags, useMutation } from '@redwoodjs/web'
 import { toast, Toaster } from '@redwoodjs/web/dist/toast'
@@ -19,9 +20,11 @@ const CREATE_CONTACT = gql`
 `
 
 const ContactPage = () => {
+  const formMethods = useForm()
   const [create, { loading, error }] = useMutation(CREATE_CONTACT, {
     onCompleted: () => {
       toast.success('thanks for submitting')
+      formMethods.reset()
     },
   })
 
@@ -38,7 +41,12 @@ const ContactPage = () => {
       <MetaTags title="Contact" description="Contact page" />
       <Toaster />
       <FormError error={error} wrapperClassName="form-error" />
-      <Form onSubmit={onSubmit} className="form" config={{ mode: 'onBlur' }}>
+      <Form
+        onSubmit={onSubmit}
+        className="form"
+        config={{ mode: 'onBlur' }}
+        formMethods={formMethods}
+      >
         <TextField name="name" validation={{ required: true }} />
         <FieldError name="name" className="error" />
         <TextField name="email" validation={{ required: true }} />

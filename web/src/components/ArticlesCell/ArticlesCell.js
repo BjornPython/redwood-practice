@@ -1,4 +1,4 @@
-import { Link, routes } from '@redwoodjs/router'
+import Article from '../Article/Article'
 
 export const QUERY = gql`
   query ArticlesQuery {
@@ -6,6 +6,7 @@ export const QUERY = gql`
       id
       title
       body
+      createdAt
     }
   }
 `
@@ -22,13 +23,7 @@ export const Success = ({ articles }) => {
   return (
     <ul>
       {articles.map((item) => {
-        return (
-          <li key={item.id}>
-            <Link to={routes.article({ id: item.id })}>
-              <h2>{item.title}</h2>
-            </Link>
-          </li>
-        )
+        return <Article key={item.id} article={item} />
       })}
     </ul>
   )

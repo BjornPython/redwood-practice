@@ -20,7 +20,7 @@ const CREATE_CONTACT = gql`
 `
 
 const ContactPage = () => {
-  const formMethods = useForm()
+  const formMethods = useForm({ mode: 'onBlur' })
   const [create, { loading, error }] = useMutation(CREATE_CONTACT, {
     onCompleted: () => {
       toast.success('thanks for submitting')
@@ -41,12 +41,7 @@ const ContactPage = () => {
       <MetaTags title="Contact" description="Contact page" />
       <Toaster />
       <FormError error={error} wrapperClassName="form-error" />
-      <Form
-        onSubmit={onSubmit}
-        className="form"
-        config={{ mode: 'onBlur' }}
-        formMethods={formMethods}
-      >
+      <Form onSubmit={onSubmit} className="form" formMethods={formMethods}>
         <TextField name="name" validation={{ required: true }} />
         <FieldError name="name" className="error" />
         <TextField name="email" validation={{ required: true }} />

@@ -5,11 +5,27 @@ import {
   Submit,
   FieldError,
 } from '@redwoodjs/forms'
-import { MetaTags } from '@redwoodjs/web'
+import { MetaTags, useMutation } from '@redwoodjs/web'
+
+const CREATE_CONTACT = gql`
+  mutation CreateContactMutation($input: CreateContactInput!) {
+    createContact(input: $input) {
+      id
+      name
+      message
+    }
+  }
+`
 
 const ContactPage = () => {
+  const [create] = useMutation(CREATE_CONTACT)
+
   const onSubmit = (data) => {
-    console.log(data)
+    create({
+      variables: {
+        input: data,
+      },
+    })
   }
 
   return (

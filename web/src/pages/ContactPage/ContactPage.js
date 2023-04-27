@@ -16,7 +16,7 @@ const ContactPage = () => {
     <>
       <MetaTags title="Contact" description="Contact page" />
 
-      <Form onSubmit={onSubmit} className="form">
+      <Form onSubmit={onSubmit} className="form" config={{ mode: 'onBlur' }}>
         <TextField name="name" validation={{ required: true }} />
         <FieldError name="name" className="error" />
         <TextField name="email" validation={{ required: true }} />
